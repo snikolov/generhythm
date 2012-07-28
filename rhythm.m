@@ -1,6 +1,6 @@
 function rhythm
 
-x = wavread('beat6.wav');
+x = wavread('beat8.wav');
 x = x(:,1);
 x = downsample(x, 50);
 plot(x)
@@ -32,14 +32,14 @@ for i = 1:100:(numel(y) - w)
   rand_y_w = rand_y(i:i+w-1);
   event_indices_w = indices_w(y_w);
   rand_event_indices_w = indices_w(rand_y_w);
-  [intarr_1, intarr_2] = intarrkm(event_indices_w, 6, 6);
-  [intarr_1_r, intarr_2_r] = intarrkm(rand_event_indices_w, 6, 6);
+  [intarr_1, intarr_2] = intarrkm(event_indices_w, 3, 5);
+  [intarr_1_r, intarr_2_r] = intarrkm(rand_event_indices_w, 3, 5);
  
   subplot(121)
   A = points2image(intarr_1, intarr_2);
   s = min(size(A));
   A = imresize(A, 200/s);
-  A = conv2(A, fspecial('gaussian', 20, 5), 'same');
+  A = conv2(A, fspecial('gaussian', 20, 6), 'same');
   imagesc(A)
   %axis equal
   %scatter(intarr_1, intarr_2, 'k', 'filled', 'SizeData', 5);
@@ -48,7 +48,7 @@ for i = 1:100:(numel(y) - w)
   A = points2image(intarr_1_r, intarr_2_r);
   s = min(size(A));
   A = imresize(A, 200/s);
-  A = conv2(A, fspecial('gaussian', 20, 5), 'same');
+  A = conv2(A, fspecial('gaussian', 20, 6), 'same');
   imagesc(A)
   %axis equal
   %scatter(intarr_1_r, intarr_2_r, 'r', 'filled', 'SizeData', 5);
