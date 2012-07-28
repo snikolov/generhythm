@@ -3,13 +3,11 @@ function rhythm
 x = wavread('beat8.wav');
 x = x(:,1);
 x = downsample(x, 50);
-plot(x)
-
 y = abs(x) > 0.1;
 indices = 1:numel(y);
 event_indices = indices(y);
 
-PLOT_AGGREGATE = 1;
+PLOT_AGGREGATE = 0;
 if PLOT_AGGREGATE
   rand_event_indices = indices(rand(numel(indices),1) < 0.05);
   for k = 1:1000
@@ -29,7 +27,7 @@ if PLOT_AGGREGATE
   end
 end
 
-PLOT_TEMPORAL = 0;
+PLOT_TEMPORAL = 1;
 if PLOT_TEMPORAL
   w = 10000;
   indices_w = 1:w;
@@ -45,16 +43,23 @@ if PLOT_TEMPORAL
     subplot(121)
     A = points2heatmap(intarr_1, intarr_2);
     imagesc(A)
-    %axis equal
+    set(gca, 'YTick', []);
+    set(gca, 'XTick', []);
+    axis square
     %scatter(intarr_1, intarr_2, 'k', 'filled', 'SizeData', 5);
 
     subplot(122)
     A = points2heatmap(intarr_1_r, intarr_2_r);
     imagesc(A)
-    %axis equal
+    set(gca, 'YTick', []);
+    set(gca, 'XTick', []);
+    axis square
     %scatter(intarr_1_r, intarr_2_r, 'r', 'filled', 'SizeData', 5);
-    title(i)
+    %title(i)
     pause(0.01);
+    
+    colormap (1-hsv)
+    set(gcf, 'Position', [100 100 1600 900])
   end
 end
 
@@ -62,7 +67,7 @@ function A = points2heatmap(r, c)
 A = points2image(r,c);
 s = min(size(A));
 A = imresize(A, 200/s);
-A = conv2(A, fspecial('gaussian', 20, 6), 'same');
+A = conv2(A, fspecial('gaussian', 30, 6), 'same');
 
 function A = points2image(r, c)
 r = ceil(r);
