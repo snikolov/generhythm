@@ -1,6 +1,6 @@
 function rhythm
 
-x = wavread('beat6.wav');
+x = wavread('beat3.wav');
 x = x(:,1);
 size(x)
 x = downsample(x, 100);
